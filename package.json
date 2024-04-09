@@ -1,10 +1,13 @@
 {
   "devDependencies": {
+    "@nomicfoundation/hardhat-ignition-ethers": "^0.15.0",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.2"
   },
   "scripts": {
     "tests": "npx hardhat test",
-    "compile": "npx hardhat compile"
+    "compile": "npx hardhat compile",
+    "node": "npx hardhat node",
+    "deploy": "npx hardhat ignition deploy ignition/modules/Wallet.ts --network localhost"
   }
 }
