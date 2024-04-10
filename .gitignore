@@ -2,14 +2,14 @@ node_modules
 .env
 
 # Hardhat files
-/cache
-/artifacts
-/ignition/deployments/
+/hardhat/cache
+/hardhat/artifacts
+/hardhat/ignition/deployments/
 
 # TypeChain files
-/typechain
-/typechain-types
+/hardhat/typechain
+/hardhat/typechain-types
 
 # solidity-coverage files
-/coverage
-/coverage.json
+/hardhat/coverage
+/hardhat/coverage.json
