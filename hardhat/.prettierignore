@@ -1,0 +1,7 @@
+# Ignore artifacts:
+build
+coverage
+typechain-types
+cache
+artifacts
+ignition/deployments/
