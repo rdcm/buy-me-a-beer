@@ -24,7 +24,6 @@ export class World {
     const sprites: [Sprite, number][] = [];
     for (let index = 0; index < this.bottles; index++) {
       const index = randomNumber(100_000_000) % this.paths.length;
-      console.log("length: ", index);
       const pair = await this.loadSprite(this.paths[index]);
 
       this.setupSprite(pair[0]);
