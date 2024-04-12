@@ -11,7 +11,7 @@
   },
   "scripts": {
     "tests": "npx hardhat test",
-    "compile": "npx hardhat compile",
+    "build": "npx hardhat compile && node scripts/copy.js",
     "node": "npx hardhat node",
     "deploy": "npx hardhat ignition deploy ignition/modules/Wallet.ts --network localhost",
     "lint": "eslint . --ext .ts",
