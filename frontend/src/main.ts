@@ -9,5 +9,6 @@ document.querySelector("#revoke")!.addEventListener("click", onRevoke);
     "vanila.png",
     "black.png",
     "chili.png",
+    "double.png",
   ]).Run();
 })();

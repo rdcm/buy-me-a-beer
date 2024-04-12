@@ -23,8 +23,8 @@ export class World {
   private async fillGrid(): Promise<[Sprite, number][]> {
     const sprites: [Sprite, number][] = [];
     for (let index = 0; index < this.bottles; index++) {
-      const index =
-        randomNumber(Number.MIN_VALUE, Number.MAX_VALUE) % this.paths.length;
+      const index = randomNumber(100_000_000) % this.paths.length;
+      console.log("length: ", index);
       const pair = await this.loadSprite(this.paths[index]);
 
       this.setupSprite(pair[0]);
