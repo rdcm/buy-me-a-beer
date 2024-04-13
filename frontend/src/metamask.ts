@@ -14,7 +14,7 @@ export class MetaMask {
   public static async RequestPermissions() {
     const accounts: string[] = await ETHERIUM_PROVIDER.request({
       method: "eth_requestAccounts",
-    }).catch((err: { code: number; }) => {
+    }).catch((err: { code: number }) => {
       if (err.code === REJECTED_BY_USER) {
         // user rejected request
         console.log("Please connect to MetaMask.");
