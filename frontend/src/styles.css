@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
 .btn {
     background: #34d6d9;
     background-image: -webkit-linear-gradient(top, #34d6d9, #2cb866);
