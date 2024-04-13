@@ -2,6 +2,8 @@
 
 DAPP project with metamask integration. After tap on `buy me a beer` button opened metamask wallet for perform transaction.  
 
+![button](./images/button.jpeg)
+
 ## Up & Runnig
 
 From `hardhat` folder:  
