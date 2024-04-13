@@ -4,7 +4,7 @@ import { Wallet } from "./wallet";
 export async function onBuy() {
   const exists = MetaMask.Exists();
   if (!exists) {
-    alert("Install Meatmask");
+    alert("Install Metamask");
     return;
   }
 
