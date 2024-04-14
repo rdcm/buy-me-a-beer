@@ -27,7 +27,7 @@ export class World {
       const pair = await this.loadSprite(this.paths[index]);
 
       this.setupSprite(pair[0]);
-      this.spawn(this.app.screen.width, this.app.screen.height, pair[0]);
+      this.spawn(screen.width, screen.height, pair[0]);
       sprites.push(pair);
     }
 
