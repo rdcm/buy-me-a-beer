@@ -16,8 +16,6 @@ export class MetaMask {
       method: "eth_requestAccounts",
     }).catch((err: { code: number }) => {
       if (err.code === REJECTED_BY_USER) {
-        // user rejected request
-        console.log("Please connect to MetaMask.");
       } else {
         console.error(err);
       }
