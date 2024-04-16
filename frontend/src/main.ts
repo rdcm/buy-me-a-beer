@@ -4,10 +4,5 @@ import { onBuy } from "./handlers.ts";
 document.querySelector("#buy")!.addEventListener("click", onBuy);
 
 (async () => {
-  await new World(100, "#1099bb", [
-    "vanila.png",
-    "black.png",
-    "chili.png",
-    "double.png",
-  ]).Run();
+  await new World(30, "#1099bb", ["beer.png"]).Run();
 })();
