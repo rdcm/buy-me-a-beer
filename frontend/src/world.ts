@@ -42,7 +42,8 @@ export class World {
     for (let index = 0; index < this.count; index++) {
       const index = randomNumber(100_000_000) % this.paths.length;
       const sprite = await this.loadSprite(this.paths[index].path);
-      this.setup(sprite, screen.width, screen.height, this.paths[index].scale);
+      this.setup(sprite, this.paths[index].scale);
+      this.spawn(sprite);
       this.sprites.push(sprite);
     }
   }
@@ -54,14 +55,36 @@ export class World {
     return sprite;
   }
 
-  private setup(sprite: Sprite, width: number, height: number, scale: number) {
+  private setup(sprite: Sprite, scale: number) {
     sprite.scale.set(scale);
     sprite.anchor.set(0.5, 0.5);
     sprite.direction = randomNumberInRange(-1, 1, 0);
     sprite.velocityX = randomNumberInRange(-1, 1, 0);
     sprite.velocityY = randomNumberInRange(-1, 1, 0);
-    sprite.x = randomNumberInRange(sprite.width, width, 0);
-    sprite.y = randomNumberInRange(sprite.height, height, 0);
+  }
+
+  private spawn(sprite: Sprite) {
+    const bounds = sprite.getBounds();
+    do {
+      sprite.x = randomNumberInRange(
+        bounds.maxX,
+        this.app.screen.width - bounds.maxX,
+      );
+      sprite.y = randomNumberInRange(
+        bounds.maxY,
+        this.app.screen.height - bounds.maxY,
+      );
+    } while (this.hasIntersection(sprite));
+  }
+
+  private hasIntersection(sprite: Sprite): boolean {
+    for (let i = 0; i < this.sprites.length; i++) {
+      if (this.isAABB(sprite, this.sprites[i])) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   private move(sprite: Sprite) {

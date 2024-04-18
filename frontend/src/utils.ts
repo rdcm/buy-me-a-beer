@@ -5,8 +5,11 @@ export function randomNumber(max: number) {
 export function randomNumberInRange(
   min: number,
   max: number,
-  exclude: number,
+  exclude?: number,
 ): number {
   var num = Math.floor(Math.random() * (max - min + 1)) + min;
+  if (exclude === undefined) {
+    return num;
+  }
   return num === exclude ? randomNumberInRange(min, max, exclude) : num;
 }
