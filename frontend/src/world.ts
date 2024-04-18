@@ -9,14 +9,19 @@ declare module "pixi.js" {
   }
 }
 
+interface SpriteParams {
+  path: string;
+  scale: number;
+}
+
 export class World {
   private readonly sprites: Sprite[] = [];
-  private readonly paths: string[];
+  private readonly paths: SpriteParams[];
   private readonly count: number;
   private readonly background: string;
   private readonly app: Application = new Application();
 
-  constructor(count: number, background: string, paths: string[]) {
+  constructor(count: number, background: string, paths: SpriteParams[]) {
     this.count = count;
     this.background = background;
     this.paths = paths;
@@ -26,7 +31,7 @@ export class World {
     await this.app.init({
       background: this.background,
       width: screen.width,
-      height: screen.height,
+      height: window.innerHeight,
     });
     document.body.appendChild(this.app.canvas);
     await this.fillGrid();
@@ -36,10 +41,8 @@ export class World {
   private async fillGrid() {
     for (let index = 0; index < this.count; index++) {
       const index = randomNumber(100_000_000) % this.paths.length;
-      const sprite = await this.loadSprite(this.paths[index]);
-
-      this.setupSprite(sprite);
-      this.spawn(screen.width, screen.height, sprite);
+      const sprite = await this.loadSprite(this.paths[index].path);
+      this.setup(sprite, screen.width, screen.height, this.paths[index].scale);
       this.sprites.push(sprite);
     }
   }
@@ -48,20 +51,17 @@ export class World {
     await Assets.load(path);
     const sprite = Sprite.from(path);
     this.app.stage.addChild(sprite);
-    sprite.direction = Math.floor(Math.random() * 2) == 0 ? 1 : -1;
-    sprite.velocityX = randomNumberInRange(-1, 1, 0);
-    sprite.velocityY = randomNumberInRange(-1, 1, 0);
     return sprite;
   }
 
-  private setupSprite(sprite: Sprite) {
-    sprite.scale.set(0.07);
+  private setup(sprite: Sprite, width: number, height: number, scale: number) {
+    sprite.scale.set(scale);
     sprite.anchor.set(0.5, 0.5);
-  }
-
-  private spawn(width: number, height: number, sprite: Sprite) {
-    sprite.x = Math.floor(Math.random() * width);
-    sprite.y = Math.floor(Math.random() * height);
+    sprite.direction = randomNumberInRange(-1, 1, 0);
+    sprite.velocityX = randomNumberInRange(-1, 1, 0);
+    sprite.velocityY = randomNumberInRange(-1, 1, 0);
+    sprite.x = randomNumberInRange(sprite.width, width, 0);
+    sprite.y = randomNumberInRange(sprite.height, height, 0);
   }
 
   private move(sprite: Sprite) {
@@ -82,10 +82,12 @@ export class World {
   }
 
   private boundariesGuard(sprite: Sprite) {
-    if (sprite.x < 0 || sprite.x > screen.width) {
+    const bounds = sprite.getBounds();
+    if (bounds.x < 0 || bounds.maxX > this.app.screen.width) {
       sprite.velocityX *= -1; // Reverse direction in x
     }
-    if (sprite.y < 0 || sprite.y > screen.height) {
+
+    if (bounds.y < 0 || bounds.maxY > this.app.screen.height) {
       sprite.velocityY *= -1; // Reverse direction in y
     }
   }
