@@ -20,6 +20,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "npx eslint .",
-    "format": "npx prettier . --write"
+    "format": "npx prettier . --write",
+    "docker": "npm run build && docker-compose up -d",
+    "docker:down": "docker-compose down"
   }
 }
