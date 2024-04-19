@@ -1,4 +1,4 @@
-import { ETHERIUM_PROVIDER, REJECTED_BY_USER, WALLET_ADDRESS } from "./consts";
+import { ETHERIUM_PROVIDER, REJECTED_BY_USER } from "./consts";
 import { Contract, BrowserProvider, parseEther } from "ethers";
 import artifact from "../contracts/Wallet.json";
 
@@ -29,7 +29,8 @@ export class Wallet {
   private static async getInstance(): Promise<Contract> {
     const provider = new BrowserProvider(ETHERIUM_PROVIDER);
     const caller = await provider.getSigner(0);
+    const address = import.meta.env.VITE_WALLET_ADDRESS;
 
-    return new Contract(WALLET_ADDRESS, artifact.abi, caller);
+    return new Contract(address!, artifact.abi, caller);
   }
 }
